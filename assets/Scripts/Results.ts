@@ -6,7 +6,7 @@ export class Results extends Component {
     @property({
         type: Label
     })
-    public scoreLable;
+    public scoreLabel;
 
     @property({
         type:Label
@@ -25,7 +25,7 @@ export class Results extends Component {
     updateScore(num: number){
         this.currentScore = num;
 
-        this.scoreLable.string = ('' + this.currentScore)
+        this.scoreLabel.string = ('' + this.currentScore)
     }
 
     resetScore(){
@@ -40,9 +40,12 @@ export class Results extends Component {
     showResults(){
         this.maxScore = Math.max(this.maxScore, this.currentScore)
         this.highScoreLabel.string = ('High Score: '+ this.maxScore)
+        this.resultEnd.node.active = true
     }
 
     hideResults() {
+        this.highScoreLabel.node.active = false
+        this.resultEnd.node.active = false
 
     }
 
