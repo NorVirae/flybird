@@ -58,11 +58,6 @@ export class Ground extends Component {
     this.tempStartLocation3.x =
       this.groundWidth1 + this.groundWidth2 + this.groundWidth3;
 
-    console.log(this.tempStartLocation1, "TEMP START 1")
-    console.log(this.tempStartLocation2, "TEMP START 2")
-    console.log(this.tempStartLocation3, "TEMP START 3")
-
-
     // set position
     this.ground1.setPosition(this.tempStartLocation1);
     this.ground2.setPosition(this.tempStartLocation2);
@@ -76,9 +71,7 @@ export class Ground extends Component {
     this.tempStartLocation2 = this.ground2.position;
     this.tempStartLocation3 = this.ground3.position;
 
-    console.log(this.tempStartLocation1, "LOC1");
-    console.log(this.tempStartLocation2, "LOC2");
-    console.log(this.tempStartLocation3, "LOC3");
+
 
 
     this.tempStartLocation1.y = 40;
@@ -93,7 +86,6 @@ export class Ground extends Component {
     const canvas = scene.getComponentInChildren(Canvas);
 
     if (this.tempStartLocation1.x <= 320 - this.groundWidth1) {
-        console.log(canvas.getComponent(UITransform).width, "WETIN")
       this.tempStartLocation1.x = canvas.getComponent(UITransform).width + this.groundWidth3;
     }
 
