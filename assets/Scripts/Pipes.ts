@@ -32,11 +32,14 @@ export class Pipes extends Component {
     public pipeSpeed:number;
     public tempPipeSpeed: number;
 
+    public isPass: boolean;
+
 
     onLoad(){
         this.gameCtrl = find("GameCtrl").getComponent("GameCtrl")
         this.pipeSpeed = this.gameCtrl.pipeSpeed
         this.initialPosition()
+        // this.isPass = false
     }
 
     initialPosition(){
@@ -49,10 +52,18 @@ export class Pipes extends Component {
         this.tempStartLocationUp.y = topHeight;
         this.tempStartLocationDown.y = (topHeight - (gap * 10))
 
+        this.bottomPipe.setPosition(this.tempStartLocationDown)
+        this.topPipe.setPosition(this.tempStartLocationUp)
+
     }
 
     update(){
+        if ( this.isPass == false && this.topPipe.position.x <= 0){
+            this.isPass = true
+            this.gameCtrl.passPipe()
 
+            this.destroy()
+        }
     }
 }
 

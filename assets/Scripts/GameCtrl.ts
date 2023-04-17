@@ -93,4 +93,8 @@ export class GameCtrl extends Component {
   startGame() {
     director.resume();
   }
+
+  passPipe(){
+    this.result.addScore()
+  }
 }
