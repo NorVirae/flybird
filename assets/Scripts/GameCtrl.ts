@@ -16,6 +16,7 @@ import { Ground } from "./Ground";
 import { Results } from "./Results";
 import { Bird } from "./Bird";
 import { PipePool } from "./PipePool";
+import { Birdaudio } from "./Birdaudio";
 const { ccclass, property } = _decorator;
 
 @ccclass("GameCtrl")
@@ -46,6 +47,14 @@ export class GameCtrl extends Component {
     tooltip: "Bird",
   })
   public bird: Bird;
+
+
+  @property({
+    type: Birdaudio,
+    tooltip: "Bird Audio",
+  })
+  public AudioCtrl: Birdaudio;
+
 
   public isOver: boolean;
 
@@ -84,6 +93,8 @@ export class GameCtrl extends Component {
     this.result.showResults();
     this.isOver = true
     this.bird.hitSomething = false
+    this.AudioCtrl.onAudioQueue(2)
+
     director.pause()
   }
 
@@ -99,6 +110,7 @@ export class GameCtrl extends Component {
 
       if(this.isOver == false){
         this.bird.flyBird();
+        this.AudioCtrl.onAudioQueue(0)
       }
     });
   }
@@ -117,6 +129,8 @@ export class GameCtrl extends Component {
 
   passPipe(){
     this.result.addScore()
+    this.AudioCtrl.onAudioQueue(3)
+
   }
 
   createPipe(){
@@ -132,6 +146,7 @@ export class GameCtrl extends Component {
 
   onGroundPipeContact(selfCollider: Collider2D, otherCollider: Collider2D, contact: IPhysics2DContact | null){
     this.bird.hitSomething = true
+    this.AudioCtrl.onAudioQueue(1)
   }
 
   birdCrash(){
