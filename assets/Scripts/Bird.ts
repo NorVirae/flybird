@@ -4,6 +4,7 @@ import {
   CCFloat,
   Component,
   Node,
+  quat,
   Tween,
   tween,
   Vec3,
@@ -37,6 +38,7 @@ export class Bird extends Component {
   resetBird() {
     this.birdLocation = new Vec3(0, 0, 0);
     this.node.setPosition(this.birdLocation);
+    this.node.setRotation(quat(0,0,0,0))
   }
 
   flyBird() {
