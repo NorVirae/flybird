@@ -38,8 +38,7 @@ export class Pipes extends Component {
         this.gameCtrl = find("GameCtrl").getComponent("GameCtrl")
         this.pipeSpeed = this.gameCtrl.pipeSpeed
         this.initialPosition()
-        console.log("GOT LOADED")
-        // this.isPass = false
+        this.isPass = false
     }
 
     initialPosition(){
@@ -70,15 +69,15 @@ export class Pipes extends Component {
 
         this.bottomPipe.setPosition(this.tempStartLocationDown)
         this.topPipe.setPosition(this.tempStartLocationUp)
-
+        console.log(this.isPass)
         if ( this.isPass == false && this.topPipe.position.x <= 0){
+            console.log("GOT IN HERE")
             this.isPass = true
             this.gameCtrl.passPipe()
         }
 
         if(this.topPipe.position.x < (0 - this.scene.width)){
             this.gameCtrl.createPipe()
-            console.log("PIPE DESTROYED")
             this.destroy()
         }
     }

@@ -28,13 +28,11 @@ export class PipePool extends Component {
 
             }else{
                 this.pool.put(this.newPipe)
-                console.log(this.pool.size(), "POOL SIZE")
             }
         }
     }
 
     addPool(){
-        console.log("ADD POOL", this.pool.size())
         if (this.pool.size() > 0){
             
             this.newPipe = this.pool.get()
