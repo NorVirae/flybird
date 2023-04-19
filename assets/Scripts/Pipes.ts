@@ -1,5 +1,4 @@
 import { _decorator, Component, Node, Vec3, screen, find, UITransform } from 'cc';
-import { GameCtrl } from './GameCtrl';
 const { ccclass, property } = _decorator;
 
 const random = (min, max) => {
@@ -39,6 +38,7 @@ export class Pipes extends Component {
         this.gameCtrl = find("GameCtrl").getComponent("GameCtrl")
         this.pipeSpeed = this.gameCtrl.pipeSpeed
         this.initialPosition()
+        console.log("GOT LOADED")
         // this.isPass = false
     }
 
@@ -57,11 +57,28 @@ export class Pipes extends Component {
 
     }
 
-    update(){
+    update(deltaTime: number){
+        
+        this.tempPipeSpeed = this.pipeSpeed * deltaTime
+
+        this.tempStartLocationDown = this.bottomPipe.position
+        this.tempStartLocationUp = this.topPipe.position
+
+
+        this.tempStartLocationDown.x -= this.tempPipeSpeed
+        this.tempStartLocationUp.x -= this.tempPipeSpeed
+
+        this.bottomPipe.setPosition(this.tempStartLocationDown)
+        this.topPipe.setPosition(this.tempStartLocationUp)
+
         if ( this.isPass == false && this.topPipe.position.x <= 0){
             this.isPass = true
             this.gameCtrl.passPipe()
+        }
 
+        if(this.topPipe.position.x < (0 - this.scene.width)){
+            this.gameCtrl.createPipe()
+            console.log("PIPE DESTROYED")
             this.destroy()
         }
     }

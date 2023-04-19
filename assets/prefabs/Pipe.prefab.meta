@@ -2,12 +2,12 @@
   "ver": "1.1.40",
   "importer": "prefab",
   "imported": true,
-  "uuid": "f7b9a73c-8fb5-4b9c-aec9-3dc4ce4de754",
+  "uuid": "c0dc2910-9cd5-4261-a3fb-e48c20160847",
   "files": [
     ".json"
   ],
   "subMetas": {},
   "userData": {
-    "syncNodeName": "Pipes"
+    "syncNodeName": "Pipe"
   }
 }

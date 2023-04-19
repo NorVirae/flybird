@@ -12,6 +12,7 @@ import {
 import { Ground } from "./Ground";
 import { Results } from "./Results";
 import { Bird } from "./Bird";
+import { PipePool } from "./PipePool";
 const { ccclass, property } = _decorator;
 
 @ccclass("GameCtrl")
@@ -42,6 +43,10 @@ export class GameCtrl extends Component {
     tooltip: "Bird",
   })
   public bird: Bird;
+
+
+  @property({type: PipePool})
+  public pipeQueue: PipePool;
 
   onLoad() {
     this.initListener();
@@ -77,7 +82,6 @@ export class GameCtrl extends Component {
     input.on(Input.EventType.KEY_DOWN, this.onKeyDown, this);
     this.node.on(Node.EventType.TOUCH_START, () => {
       this.bird.flyBird();
-
       director.resume()
 
     });
@@ -88,6 +92,7 @@ export class GameCtrl extends Component {
     this.bird.resetBird();
 
     this.startGame();
+    this.pipeQueue.reset()
   }
 
   startGame() {
@@ -96,5 +101,9 @@ export class GameCtrl extends Component {
 
   passPipe(){
     this.result.addScore()
+  }
+
+  createPipe(){
+    this.pipeQueue.addPool()
   }
 }
