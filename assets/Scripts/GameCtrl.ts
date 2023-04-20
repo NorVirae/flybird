@@ -15,8 +15,13 @@ import {
 import { Ground } from "./Ground";
 import { Results } from "./Results";
 import { Bird } from "./Bird";
-import { PipePool } from "./PipePool";
 import { Birdaudio } from "./Birdaudio";
+import { PipePool } from "./PipePool";
+// import { Ground } from "./Ground";
+// import { Results } from "./Results";
+// import { Bird } from "./Bird";
+// import { PipePool } from "./PipePool";
+// import { Birdaudio } from "./Birdaudio";
 const { ccclass, property } = _decorator;
 
 @ccclass("GameCtrl")
@@ -70,24 +75,24 @@ export class GameCtrl extends Component {
     director.pause();
   }
 
-  //    delete at final version
-  // onKeyDown(event: EventKeyboard) {
-  //   switch (event.keyCode) {
-  //     case KeyCode.KEY_P:
-  //       this.result.addScore();
-  //       break;
+    //  delete at final version
+  onKeyDown(event: EventKeyboard) {
+    switch (event.keyCode) {
+      case KeyCode.ESCAPE:
+        director.loadScene("ui");
+        break;
 
-  //     case KeyCode.KEY_R:
+      // case KeyCode.KEY_R:
 
-  //       this.resetGame();
+      //   this.resetGame();
 
-  //       break;
+      //   break;
 
-  //     case KeyCode.KEY_Q:
-  //       this.gameOver();
-  //       break;
-  //   }
-  // }
+      // case KeyCode.KEY_Q:
+      //   this.gameOver();
+      //   break;
+    }
+  }
 
   gameOver() {
     this.result.showResults();
@@ -99,7 +104,7 @@ export class GameCtrl extends Component {
   }
 
   initListener() {
-    // input.on(Input.EventType.KEY_DOWN, this.onKeyDown, this);
+    input.on(Input.EventType.KEY_DOWN, this.onKeyDown, this);
     this.node.on(Node.EventType.TOUCH_START, () => {
       console.log("CLICKED", this.isOver)
 
