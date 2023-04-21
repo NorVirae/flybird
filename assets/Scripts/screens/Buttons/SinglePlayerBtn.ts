@@ -1,23 +1,9 @@
-import {
-  _decorator,
-  Button,
-  Component,
-  director,
-  EditBox,
-  find,
-  Game,
-  Node,
-} from "cc";
-import { GameManager } from "../GameManager";
+import { _decorator, Button, Component, director, find, Node } from "cc";
+import { GameManager } from "../../GameManager";
 const { ccclass, property } = _decorator;
 
-@ccclass("JoinServerBtn")
-export class JoinServerBtn extends Component {
-  @property({
-    type: EditBox,
-  })
-  public roomIdInput: EditBox;
-
+@ccclass("SinglePlayerBtn")
+export class SinglePlayerBtn extends Component {
   @property({
     type: GameManager,
   })
@@ -29,7 +15,6 @@ export class JoinServerBtn extends Component {
   }
 
   callback(event: Event, customEventData: string) {
-    let textComp = this.roomIdInput.node.getComponent(EditBox);
     this.gameManager.gameCount += 1;
     console.log(this.gameManager.gameCount, "PROOF OF PERSISTENCE UI");
     director.loadScene("scene");

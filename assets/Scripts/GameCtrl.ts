@@ -6,6 +6,7 @@ import {
   Contact2DType,
   director,
   EventKeyboard,
+  find,
   Input,
   input,
   IPhysics2DContact,
@@ -17,6 +18,7 @@ import { Results } from "./Results";
 import { Bird } from "./Bird";
 import { Birdaudio } from "./Birdaudio";
 import { PipePool } from "./PipePool";
+import { GameManager } from "./GameManager";
 // import { Ground } from "./Ground";
 // import { Results } from "./Results";
 // import { Bird } from "./Bird";
@@ -67,11 +69,16 @@ export class GameCtrl extends Component {
   @property({type: PipePool})
   public pipeQueue: PipePool;
 
+  
+  public gameManager;
+
   onLoad() {
     this.initListener();
     this.result.resetScore();
     this.isOver = true;
     // this.resetGame()
+    this.gameManager = find("GameManager").getComponent("GameManager")
+
     director.pause();
   }
 
@@ -79,6 +86,8 @@ export class GameCtrl extends Component {
   onKeyDown(event: EventKeyboard) {
     switch (event.keyCode) {
       case KeyCode.ESCAPE:
+        this.gameManager.gameCount += 1;
+        console.log(this.gameManager.gameCount, "PROOF OF PERSISTENCE SCENE")
         director.loadScene("ui");
         break;
 
