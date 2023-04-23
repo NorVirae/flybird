@@ -9,6 +9,7 @@ import {
   Node,
 } from "cc";
 import { GameManager } from "../GameManager";
+import { RouterManager } from "../RouterManager";
 const { ccclass, property } = _decorator;
 
 @ccclass("JoinServerBtn")
@@ -23,6 +24,11 @@ export class JoinServerBtn extends Component {
   })
   public gameManager;
 
+  @property({
+    type: RouterManager
+  })
+  public routeManager: RouterManager;
+
   onLoad() {
     this.node.on(Button.EventType.CLICK, this.callback, this);
     this.gameManager = find("GameManager").getComponent("GameManager");
@@ -32,6 +38,6 @@ export class JoinServerBtn extends Component {
     let textComp = this.roomIdInput.node.getComponent(EditBox);
     this.gameManager.gameCount += 1;
     console.log(this.gameManager.gameCount, "PROOF OF PERSISTENCE UI");
-    director.loadScene("scene");
+    this.routeManager.loadScene(0)
   }
 }

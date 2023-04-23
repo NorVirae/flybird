@@ -18,6 +18,7 @@ import { Birdaudio } from "../Birdaudio";
 import { Bird } from "../Bird";
 import { Results } from "../multiplayer/Results";
 import { GroundMultiplayer } from "./GroundMultiplayer";
+import { MultiplayerBird } from "./MultiplayerBird";
 const { ccclass, property } = _decorator;
 
 @ccclass("GameCtrlMultiplayer")
@@ -44,16 +45,10 @@ export class GameCtrlMultiplayer extends Component {
   public result: Results;
 
   @property({
-    type: Bird,
-    tooltip: "Red Bird",
-  })
-  public redBird: Bird;
-
-  @property({
-    type: Bird,
+    type: MultiplayerBird,
     tooltip: "Yellow Bird",
   })
-  public yellowBird: Bird;
+  public yellowBird: MultiplayerBird;
 
   @property({
     type: Birdaudio,
@@ -103,7 +98,6 @@ export class GameCtrlMultiplayer extends Component {
   gameOver() {
     this.result.showResults();
     this.isOver = true;
-    this.redBird.hitSomething = false;
     this.yellowBird.hitSomething = false;
 
     this.AudioCtrl.onAudioQueue(2);
@@ -121,7 +115,6 @@ export class GameCtrlMultiplayer extends Component {
       }
 
       if (this.isOver == false) {
-        this.redBird.flyBird();
         this.yellowBird.flyBird();
 
         this.AudioCtrl.onAudioQueue(0);
@@ -131,7 +124,6 @@ export class GameCtrlMultiplayer extends Component {
 
   resetGame() {
     this.result.resetScore();
-    this.redBird.resetBird();
     this.yellowBird.resetBird();
     console.log("RESET")
     this.pipeQueue.reset();
@@ -153,16 +145,7 @@ export class GameCtrlMultiplayer extends Component {
   }
 
   contactGroundPipe() {
-    let redCollider = this.redBird.getComponent(Collider2D);
     let yellowCollider = this.yellowBird.getComponent(Collider2D);
-
-    if (redCollider) {
-      redCollider.on(
-        Contact2DType.BEGIN_CONTACT,
-        this.onGroundPipeContact,
-        this
-      );
-    }
 
     if (yellowCollider) {
       yellowCollider.on(
@@ -178,7 +161,6 @@ export class GameCtrlMultiplayer extends Component {
     otherCollider: Collider2D,
     contact: IPhysics2DContact | null
   ) {
-    this.redBird.hitSomething = true;
     this.yellowBird.hitSomething = true;
 
     this.AudioCtrl.onAudioQueue(1);
@@ -186,10 +168,6 @@ export class GameCtrlMultiplayer extends Component {
 
   birdCrash() {
     this.contactGroundPipe();
-
-    if (this.redBird.hitSomething == true) {
-      this.gameOver();
-    }
 
     if (this.yellowBird.hitSomething == true) {
       this.gameOver();

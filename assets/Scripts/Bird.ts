@@ -3,12 +3,14 @@ import {
   Animation,
   CCFloat,
   Component,
+  find,
   Node,
   quat,
   Tween,
   tween,
   Vec3,
 } from "cc";
+import { NetworkManager } from "./NetworkManager";
 const { ccclass, property } = _decorator;
 
 @ccclass("Bird")
@@ -24,6 +26,11 @@ export class Bird extends Component {
     tooltip: "how long can they fly",
   })
   public jumpDuration: number = 3.5; //seconds
+
+
+  @property({type: NetworkManager})
+  public networkManager: NetworkManager;
+
 
   public birdAnimation: Animation;
   public birdLocation: Vec3;
@@ -60,7 +67,9 @@ export class Bird extends Component {
     this.birdAnimation.play()
   }
 
-
+  update(){
+    this.networkManager.sendLocationToOpClient(new Vec3(this.node.position.x, this.node.position.y, 0))
+  }
 
 
 }

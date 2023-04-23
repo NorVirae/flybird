@@ -1,18 +1,28 @@
-import { _decorator, Button, Event, Component, EventHandler, Node, director, Scene } from 'cc';
+import {
+  _decorator,
+  Button,
+  Event,
+  Component,
+  EventHandler,
+  Node,
+  director,
+  Scene,
+} from "cc";
+import { RouterManager } from "../RouterManager";
 const { ccclass, property } = _decorator;
 
-@ccclass('StartGameBtn')
+@ccclass("StartGameBtn")
 export class StartGameBtn extends Component {
-   onLoad(){
-    this.node.on(Button.EventType.CLICK, this.callback, this)
-   }
+  @property({ type: RouterManager })
+  public routeManager: RouterManager;
 
-   callback(event: Event, customEventData: string){
-    const node = event.target as Node;
-    const button = node.getComponent(Button)
-    console.log(customEventData, "CLICKED")
-    director.loadScene("scene")
-   }
+  onLoad() {
+    this.node.on(Button.EventType.CLICK, this.callback, this);
+  }
+
+  callback() {
+    
+    this.routeManager.loadScene(1)
+    console.log("HUI")
+  }
 }
-
-

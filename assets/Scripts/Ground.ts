@@ -71,12 +71,6 @@ export class Ground extends Component {
     this.tempStartLocation2 = this.ground2.position;
     this.tempStartLocation3 = this.ground3.position;
 
-
-
-
-    this.tempStartLocation1.y = 40;
-    this.tempStartLocation2.y = 40;
-    this.tempStartLocation3.y = 40;
     // get speed and substract frame
     this.tempStartLocation1.x -= this.gameSpeed * deltaTime;
     this.tempStartLocation2.x -= this.gameSpeed * deltaTime;
@@ -85,15 +79,15 @@ export class Ground extends Component {
     const scene = director.getScene();
     const canvas = scene.getComponentInChildren(Canvas);
 
-    if (this.tempStartLocation1.x <= 320 - this.groundWidth1) {
+    if (this.tempStartLocation1.x <= 0 - this.groundWidth1) {
       this.tempStartLocation1.x = canvas.getComponent(UITransform).width + this.groundWidth3;
     }
 
-    if (this.tempStartLocation2.x <= 320 - this.groundWidth2) {
+    if (this.tempStartLocation2.x <= 0 - this.groundWidth2) {
       this.tempStartLocation2.x = canvas.getComponent(UITransform).width + this.groundWidth3;
     }
 
-    if (this.tempStartLocation3.x <= 320 - this.groundWidth3) {
+    if (this.tempStartLocation3.x <= 0 - this.groundWidth3) {
       this.tempStartLocation3.x = canvas.getComponent(UITransform).width + this.groundWidth3;
     }
 
