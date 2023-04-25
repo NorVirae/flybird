@@ -67,9 +67,9 @@ export class Bird extends Component {
     this.birdAnimation.play()
   }
 
-  update(){
-    this.networkManager.sendLocationToOpClient(new Vec3(this.node.position.x, this.node.position.y, 0))
-  }
+  // update(){
+  //   this.networkManager.sendLocationToOpClient(new Vec3(this.node.position.x, this.node.position.y, 0))
+  // }
 
 
 }

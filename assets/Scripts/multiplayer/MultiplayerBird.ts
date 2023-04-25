@@ -1,5 +1,6 @@
 import { _decorator, Animation, CCFloat, Component, Node, quat, tween, Vec3 } from 'cc';
 import { NetworkManager } from '../NetworkManager';
+import { Results } from './Results';
 const { ccclass, property } = _decorator;
 
 @ccclass('MultiplayerBird')
@@ -20,6 +21,8 @@ export class MultiplayerBird extends Component {
       @property({type: NetworkManager})
       public networkManager: NetworkManager;
     
+      @property({type: Results})
+      public ResultsMulti: Results
     
       public birdAnimation: Animation;
       public birdLocation: Vec3;
@@ -58,8 +61,8 @@ export class MultiplayerBird extends Component {
         this.birdAnimation.play()
       }
     
-      update(){
-        this.networkManager.sendLocationToOpClient(new Vec3(this.node.position.x, this.node.position.y, 0))
+      update(){ 
+        this.networkManager.sendScoreLocationToOpClient(new Vec3(this.node.position.x, this.node.position.y, 0), this.ResultsMulti.player1Score)
       }
 }
 

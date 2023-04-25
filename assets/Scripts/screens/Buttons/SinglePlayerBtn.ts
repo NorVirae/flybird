@@ -17,13 +17,10 @@ export class SinglePlayerBtn extends Component {
 
   onLoad() {
     this.node.on(Button.EventType.CLICK, this.callback, this);
-    this.gameManager = find("GameManager").getComponent("GameManager");
   }
 
   callback(event: Event, customEventData: string) {
-    this.gameManager.gameCount += 1;
-    console.log(this.gameManager.gameCount, "PROOF OF PERSISTENCE UI");
+    console.log(this.routerManager)
     this.routerManager.navigateTo(0)
-    
   }
 }

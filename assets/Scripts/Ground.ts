@@ -4,6 +4,8 @@ import {
   Component,
   director,
   Node,
+  Scene,
+  screen,
   UITransform,
   Vec3,
 } from "cc";
@@ -30,19 +32,23 @@ export class Ground extends Component {
   })
   public ground3;
 
+
   // create ground width variables
   public groundWidth1;
   public groundWidth2;
   public groundWidth3;
 
-  // this is the temporary start location   
-  public tempStartLocation1 = new Vec3;
-  public tempStartLocation2 = new Vec3;
-  public tempStartLocation3 = new Vec3;
+  // this is the temporary start location
+  public tempStartLocation1 = new Vec3();
+  public tempStartLocation2 = new Vec3();
+  public tempStartLocation3 = new Vec3();
 
-  public gameCtrlSpeed = new GameCtrl 
+  public gameCtrlSpeed = new GameCtrl();
 
-  public gameSpeed: number = 50;
+  public gameSpeed: number = 30;
+
+  public screen = screen.windowSize
+  
 
   onLoad() {
     this.startUp();
@@ -53,10 +59,10 @@ export class Ground extends Component {
     this.groundWidth2 = this.ground2.getComponent(UITransform).width;
     this.groundWidth3 = this.ground3.getComponent(UITransform).width;
 
-    this.tempStartLocation1.x = this.groundWidth1;
-    this.tempStartLocation2.x = this.groundWidth2 + this.groundWidth1;
-    this.tempStartLocation3.x =
-      this.groundWidth1 + this.groundWidth2 + this.groundWidth3;
+    this.tempStartLocation1.x = 0;
+    this.tempStartLocation2.x = this.groundWidth2;
+    this.tempStartLocation3.x = this.groundWidth1 + this.groundWidth2;
+    
 
     // set position
     this.ground1.setPosition(this.tempStartLocation1);
@@ -66,7 +72,7 @@ export class Ground extends Component {
   }
 
   update(deltaTime: number) {
-    this.gameSpeed = this.gameCtrlSpeed.speed
+    this.gameSpeed = this.gameCtrlSpeed.speed;
     this.tempStartLocation1 = this.ground1.position;
     this.tempStartLocation2 = this.ground2.position;
     this.tempStartLocation3 = this.ground3.position;
@@ -80,16 +86,21 @@ export class Ground extends Component {
     const canvas = scene.getComponentInChildren(Canvas);
 
     if (this.tempStartLocation1.x <= 0 - this.groundWidth1) {
-      this.tempStartLocation1.x = canvas.getComponent(UITransform).width + this.groundWidth3;
+      this.tempStartLocation1.x =
+        canvas.getComponent(UITransform).width;
     }
 
     if (this.tempStartLocation2.x <= 0 - this.groundWidth2) {
-      this.tempStartLocation2.x = canvas.getComponent(UITransform).width + this.groundWidth3;
+      this.tempStartLocation2.x =
+        canvas.getComponent(UITransform).width;
     }
 
     if (this.tempStartLocation3.x <= 0 - this.groundWidth3) {
-      this.tempStartLocation3.x = canvas.getComponent(UITransform).width + this.groundWidth3;
+      this.tempStartLocation3.x =
+        canvas.getComponent(UITransform).width;
     }
+
+
 
     this.ground1.setPosition(this.tempStartLocation1);
     this.ground2.setPosition(this.tempStartLocation2);

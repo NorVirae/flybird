@@ -19,11 +19,8 @@ import { Bird } from "./Bird";
 import { Birdaudio } from "./Birdaudio";
 import { PipePool } from "./PipePool";
 import { GameManager } from "./GameManager";
-// import { Ground } from "./Ground";
-// import { Results } from "./Results";
-// import { Bird } from "./Bird";
-// import { PipePool } from "./PipePool";
-// import { Birdaudio } from "./Birdaudio";
+import { RouterManager } from "./RouterManager";
+
 const { ccclass, property } = _decorator;
 
 @ccclass("GameCtrl")
@@ -62,6 +59,11 @@ export class GameCtrl extends Component {
   })
   public AudioCtrl: Birdaudio;
 
+  @property({
+    type: RouterManager
+  })
+  public routerManager: RouterManager;
+
 
   public isOver: boolean;
 
@@ -69,15 +71,16 @@ export class GameCtrl extends Component {
   @property({type: PipePool})
   public pipeQueue: PipePool;
 
-  
-  public gameManager;
+  @property({
+    type: GameManager
+  })
+  public gameManager:GameManager;
 
   onLoad() {
     this.initListener();
     this.result.resetScore();
     this.isOver = true;
     // this.resetGame()
-    this.gameManager = find("GameManager").getComponent("GameManager")
 
     director.pause();
   }
@@ -86,9 +89,7 @@ export class GameCtrl extends Component {
   onKeyDown(event: EventKeyboard) {
     switch (event.keyCode) {
       case KeyCode.ESCAPE:
-        this.gameManager.gameCount += 1;
-        console.log(this.gameManager.gameCount, "PROOF OF PERSISTENCE SCENE")
-        director.loadScene("ui");
+        this.routerManager.loadScene(2)
         break;
 
       // case KeyCode.KEY_R:
@@ -115,7 +116,6 @@ export class GameCtrl extends Component {
   initListener() {
     input.on(Input.EventType.KEY_DOWN, this.onKeyDown, this);
     this.node.on(Node.EventType.TOUCH_START, () => {
-      console.log("CLICKED", this.isOver)
 
       if(this.isOver == true){
 

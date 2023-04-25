@@ -1,11 +1,6 @@
 import { _decorator, Component, Label, Node } from "cc";
 const { ccclass, property } = _decorator;
 
-interface Score {
-  player1Score: number;
-  player2Score: number;
-}
-
 @ccclass("Results")
 export class Results extends Component {
   @property({
@@ -35,26 +30,27 @@ export class Results extends Component {
   public player1Score: number = 0;
   public player2Score: number = 0;
 
-  updateScore(playerScores: Score) {
-    this.player1Score = playerScores.player1Score;
-    this.player2Score = playerScores.player2Score;
+  updateScore(player1Score: number) {
+    this.player1Score = player1Score;
 
     console.log(this.player1Score, "P1", this.player2Score, "P2");
 
-    this.player1ScoreLabel.string = "Player 1: " + this.player1Score;
-    this.player2ScoreLabel.string = "Player 2: " + this.player2Score;
+    this.player1ScoreLabel.string = "You: " + this.player1Score;
+  }
+
+  updatePlayer2Score(player2Score: number){
+    this.player2Score = player2Score
+
+    this.player2ScoreLabel.string = "Opp: " + this.player2Score
   }
 
   resetScore() {
-    this.updateScore({ player1Score: 0, player2Score: 0 });
+    this.updateScore(0);
     this.hideResults();
   }
 
   addScore() {
-    this.updateScore({
-      player1Score: this.player1Score + 1,
-      player2Score: this.player2Score + 1,
-    });
+    this.updateScore(this.player1Score + 1);
   }
 
   showResults() {
