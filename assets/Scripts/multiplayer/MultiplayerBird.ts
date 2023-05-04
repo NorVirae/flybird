@@ -42,7 +42,6 @@ export class MultiplayerBird extends Component {
       }
     
       flyBird() {
-        console.log(this.birdAnimation)
         this.birdAnimation.stop();
         tween(this.node.position).to(
           this.jumpDuration,

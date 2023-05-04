@@ -30,7 +30,6 @@ export class MultiplayerBtn extends Component {
 
   callback(event: Event, customEventData: string) {
     this.gameManager.gameCount += 1;
-    console.log(this.gameManager.gameCount, "PROOF OF PERSISTENCE UI");
 
     this.routerManager.navigateTo(2)
     // director.loadScene("pvp");

@@ -40,8 +40,6 @@ export class NetworkManager extends Component {
   async connect() {
     try {
       this.room = await this.client.joinOrCreate("race", { mode: "duo" });
-      console.log("Joined successfully!");
-      console.log("user's sessionId:", this.room.sessionId);
 
       this.room.onStateChange((state) => {
         // console.log("onStateChange: ", state)
@@ -52,12 +50,15 @@ export class NetworkManager extends Component {
       });
 
       this.room.onMessage("fly", (message) => {
-        console.log(message, "HERE");
 
         this.temLocation = new Vec3(message.x, message.y, 0);
         this.opBird.updatePosition(this.temLocation);
         this.ResultsMultiplayer.updatePlayer2Score(message.score)
       });
+
+      this.room.onMessage("results", (message) => {
+        console.log(message)
+      })
     } catch (err) {
       console.log(err);
     }
@@ -65,5 +66,9 @@ export class NetworkManager extends Component {
 
   sendScoreLocationToOpClient(message: Vec3, score?: number) {
     this.room.send("fly", { x: message.x, y: message.y, score: score });
+  }
+  
+  resultGameAndDetermineWinner(){
+    this.room.send("results", {pauseGame: true, highestScore: 0})
   }
 }

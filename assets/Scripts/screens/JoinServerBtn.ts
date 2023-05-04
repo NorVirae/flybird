@@ -37,7 +37,6 @@ export class JoinServerBtn extends Component {
   callback(event: Event, customEventData: string) {
     let textComp = this.roomIdInput.node.getComponent(EditBox);
     this.gameManager.gameCount += 1;
-    console.log(this.gameManager.gameCount, "PROOF OF PERSISTENCE UI");
     this.routeManager.loadScene(0)
   }
 }

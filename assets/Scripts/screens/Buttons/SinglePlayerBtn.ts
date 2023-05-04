@@ -20,7 +20,6 @@ export class SinglePlayerBtn extends Component {
   }
 
   callback(event: Event, customEventData: string) {
-    console.log(this.routerManager)
     this.routerManager.navigateTo(0)
   }
 }

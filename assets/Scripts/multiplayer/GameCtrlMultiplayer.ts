@@ -19,6 +19,7 @@ import { Bird } from "../Bird";
 import { Results } from "../multiplayer/Results";
 import { GroundMultiplayer } from "./GroundMultiplayer";
 import { MultiplayerBird } from "./MultiplayerBird";
+import { NetworkManager } from "../NetworkManager";
 const { ccclass, property } = _decorator;
 
 @ccclass("GameCtrlMultiplayer")
@@ -28,6 +29,11 @@ export class GameCtrlMultiplayer extends Component {
     tooltip: "Ground",
   })
   public ground: GroundMultiplayer;
+
+  @property({
+    type: NetworkManager
+  })
+  public networkManager: NetworkManager;
 
   @property({
     type: CCInteger,
@@ -79,7 +85,6 @@ export class GameCtrlMultiplayer extends Component {
     switch (event.keyCode) {
       case KeyCode.ESCAPE:
         this.gameManager.gameCount += 1;
-        console.log(this.gameManager.gameCount, "PROOF OF PERSISTENCE SCENE");
         director.loadScene("ui");
         break;
 
@@ -108,7 +113,6 @@ export class GameCtrlMultiplayer extends Component {
   initListener() {
     input.on(Input.EventType.KEY_DOWN, this.onKeyDown, this);
     this.node.on(Node.EventType.TOUCH_START, () => {
-      console.log("CLICKED", this.isOver);
 
       if (this.isOver == true) {
         this.resetGame();
@@ -125,7 +129,6 @@ export class GameCtrlMultiplayer extends Component {
   resetGame() {
     this.result.resetScore();
     this.yellowBird.resetBird();
-    console.log("RESET")
     this.pipeQueue.reset();
     this.isOver = false;
     this.startGame();
@@ -151,7 +154,7 @@ export class GameCtrlMultiplayer extends Component {
       yellowCollider.on(
         Contact2DType.BEGIN_CONTACT,
         this.onGroundPipeContact,
-        this
+        this.networkManager.resultGameAndDetermineWinner()
       );
     }
   }
@@ -170,6 +173,7 @@ export class GameCtrlMultiplayer extends Component {
     this.contactGroundPipe();
 
     if (this.yellowBird.hitSomething == true) {
+      this.networkManager.resultGameAndDetermineWinner()
       this.gameOver();
     }
   }

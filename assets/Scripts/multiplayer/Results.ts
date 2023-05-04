@@ -23,6 +23,21 @@ export class Results extends Component {
   })
   public resultEnd;
 
+  @property({type: Node})
+  public overlay: Node;
+
+  @property({type: Label})
+  public raceStatus: Label;
+
+  @property({type: Label})
+  public reason: Label;
+
+  @property({type: Label})
+  public yourScore: Label;
+
+  @property({type: Label})
+  public oppScore: Label;
+
   public maxScore: number = 0;
 
   public currentScore: number = 0;
@@ -33,7 +48,6 @@ export class Results extends Component {
   updateScore(player1Score: number) {
     this.player1Score = player1Score;
 
-    console.log(this.player1Score, "P1", this.player2Score, "P2");
 
     this.player1ScoreLabel.string = "You: " + this.player1Score;
   }
@@ -55,7 +69,6 @@ export class Results extends Component {
 
   showResults() {
     this.maxScore = Math.max(this.maxScore, this.currentScore);
-    console.log(this.maxScore);
     this.highScoreLabel.string = "High Score: " + this.maxScore;
     this.resultEnd.node.active = true;
     this.highScoreLabel.node.active = true;

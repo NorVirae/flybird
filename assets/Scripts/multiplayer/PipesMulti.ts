@@ -35,7 +35,6 @@ export class PipesMulti extends Component {
 
 
     onLoad(){
-        console.log(this.gameCtrl, "GAME CTRL")
 
         this.gameCtrl = find("GameCtrlMultiplayer").getComponent("GameCtrlMultiplayer")
         this.pipeSpeed = this.gameCtrl.pipeSpeed
@@ -46,7 +45,6 @@ export class PipesMulti extends Component {
     initialPosition(){
         this.tempStartLocationUp.x = this.topPipe.getComponent(UITransform).width + this.scene.width
         this.tempStartLocationDown.x = this.topPipe.getComponent(UITransform).width + this.scene.width
-        console.log("Initial position loaded")
         let gap = random(90, 100)
         let topHeight = random(0, 450)
 
@@ -71,9 +69,7 @@ export class PipesMulti extends Component {
 
         this.bottomPipe.setPosition(this.tempStartLocationDown)
         this.topPipe.setPosition(this.tempStartLocationUp)
-        console.log(this.isPass)
         if ( this.isPass == false && this.topPipe.position.x <= 0){
-            console.log("GOT IN HERE")
             this.isPass = true
             this.gameCtrl.passPipe()
         }

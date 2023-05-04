@@ -23,6 +23,5 @@ export class StartGameBtn extends Component {
   callback() {
     
     this.routeManager.loadScene(1)
-    console.log("HUI")
   }
 }

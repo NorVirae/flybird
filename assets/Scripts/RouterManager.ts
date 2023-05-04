@@ -43,6 +43,5 @@ export class RouterManager extends Component {
       }
     }
 
-    console.log("NAVIGATION SUCCESSFUL");
   }
 }

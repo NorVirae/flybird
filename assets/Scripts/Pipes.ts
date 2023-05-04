@@ -69,9 +69,7 @@ export class Pipes extends Component {
 
         this.bottomPipe.setPosition(this.tempStartLocationDown)
         this.topPipe.setPosition(this.tempStartLocationUp)
-        console.log(this.isPass)
         if ( this.isPass == false && this.topPipe.position.x <= 0){
-            console.log("GOT IN HERE")
             this.isPass = true
             this.gameCtrl.passPipe()
         }
