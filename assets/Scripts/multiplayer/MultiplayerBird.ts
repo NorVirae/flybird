@@ -61,6 +61,7 @@ export class MultiplayerBird extends Component {
       }
     
       update(){ 
+        // console.log(this.networkManager, "NETWORK")
         this.networkManager.sendScoreLocationToOpClient(new Vec3(this.node.position.x, this.node.position.y, 0), this.ResultsMulti.player1Score)
       }
 }

@@ -31,7 +31,7 @@ export class GameCtrlMultiplayer extends Component {
   public ground: GroundMultiplayer;
 
   @property({
-    type: NetworkManager
+    type: NetworkManager,
   })
   public networkManager: NetworkManager;
 
@@ -70,10 +70,10 @@ export class GameCtrlMultiplayer extends Component {
   public gameManager;
 
   onLoad() {
-    
     this.initListener();
     this.result.resetScore();
     this.isOver = true;
+    console.log(this.yellowBird, "YELLOW BIERD");
     // this.resetGame()
     this.gameManager = find("GameManager").getComponent("GameManager");
 
@@ -113,7 +113,6 @@ export class GameCtrlMultiplayer extends Component {
   initListener() {
     input.on(Input.EventType.KEY_DOWN, this.onKeyDown, this);
     this.node.on(Node.EventType.TOUCH_START, () => {
-
       if (this.isOver == true) {
         this.resetGame();
       }
@@ -149,12 +148,12 @@ export class GameCtrlMultiplayer extends Component {
 
   contactGroundPipe() {
     let yellowCollider = this.yellowBird.getComponent(Collider2D);
-
     if (yellowCollider) {
+
       yellowCollider.on(
         Contact2DType.BEGIN_CONTACT,
         this.onGroundPipeContact,
-        this.networkManager.resultGameAndDetermineWinner()
+        this
       );
     }
   }
@@ -164,6 +163,7 @@ export class GameCtrlMultiplayer extends Component {
     otherCollider: Collider2D,
     contact: IPhysics2DContact | null
   ) {
+    console.log("Onground Pipe COntact", this.yellowBird);
     this.yellowBird.hitSomething = true;
 
     this.AudioCtrl.onAudioQueue(1);
@@ -173,7 +173,7 @@ export class GameCtrlMultiplayer extends Component {
     this.contactGroundPipe();
 
     if (this.yellowBird.hitSomething == true) {
-      this.networkManager.resultGameAndDetermineWinner()
+      this.networkManager.resultGameAndDetermineWinner();
       this.gameOver();
     }
   }

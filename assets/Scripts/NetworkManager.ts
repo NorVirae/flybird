@@ -19,9 +19,9 @@ export class NetworkManager extends Component {
   public opBird: OpBird;
 
   @property({
-    type: Results
+    type: Results,
   })
-  public ResultsMultiplayer: Results
+  public ResultsMultiplayer: Results;
 
   public client!: Colyseus.Client;
   public room!: Colyseus.Room;
@@ -39,7 +39,10 @@ export class NetworkManager extends Component {
 
   async connect() {
     try {
+      console.log(this.room, "PRECONNECT CLIENT CONNECTED SUCCESSFULLY!");
+
       this.room = await this.client.joinOrCreate("race", { mode: "duo" });
+      console.log(this.room, "CLIENT CONNECTED SUCCESSFULLY!");
 
       this.room.onStateChange((state) => {
         // console.log("onStateChange: ", state)
@@ -50,25 +53,28 @@ export class NetworkManager extends Component {
       });
 
       this.room.onMessage("fly", (message) => {
-
         this.temLocation = new Vec3(message.x, message.y, 0);
         this.opBird.updatePosition(this.temLocation);
-        this.ResultsMultiplayer.updatePlayer2Score(message.score)
+        this.ResultsMultiplayer.updatePlayer2Score(message.score);
       });
 
       this.room.onMessage("results", (message) => {
-        console.log(message)
-      })
+        console.log(message);
+      });
     } catch (err) {
-      console.log(err);
+      console.log(err, "ERROR FROM CONNECTION");
     }
   }
 
   sendScoreLocationToOpClient(message: Vec3, score?: number) {
-    this.room.send("fly", { x: message.x, y: message.y, score: score });
+    if (this.room) {
+      this.room.send("fly", { x: message.x, y: message.y, score: score });
+    }
   }
-  
-  resultGameAndDetermineWinner(){
-    this.room.send("results", {pauseGame: true, highestScore: 0})
+
+  resultGameAndDetermineWinner() {
+    if (this.room) {
+      this.room.send("results", { pauseGame: true, highestScore: 0 });
+    }
   }
 }
